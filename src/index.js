@@ -1,10 +1,10 @@
-let mymap = L.map("mapid").setView([0, 0], 8);
+let mymap = L.map("mapid").setView([0, 0], 2);
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
     attribution:
       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 8,
+    maxZoom: 7,
     id: "mapbox/streets-v8",
     tileSize: 512,
     zoomOffset: -1,
@@ -13,7 +13,9 @@ L.tileLayer(
   }
 ).addTo(mymap);
 
-/////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////777777777
+
+///////////////////////////////////////s//////////////////////////
 
 function getData(response) {
   let index = 0;
@@ -53,3 +55,5 @@ let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
 let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbox}&appid=${apiKey}`;
 //let url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${apiKey}`;
 axios.get(weatherApiUrl).then(getData);
+
+L.Control.geocoder().addTo(mymap);
