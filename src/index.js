@@ -1,10 +1,11 @@
-let map = L.map("mapid").setView([0, 0], 2);
+let map = L.map("mapid").setView([48, 15], 6);
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
     attribution:
       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 7,
+    minZoom: 4,
     id: "mapbox/streets-v8",
     tileSize: 512,
     zoomOffset: -1,
@@ -13,11 +14,7 @@ L.tileLayer(
   }
 ).addTo(map);
 
-//////////////////////////////////////////////////////////777777777
-
-///////////////////////////////////////s//////////////////////////
-
-function getData(response) {
+/*function getData(response) {
   let index = 0;
 
   while (index < response.data.list.length) {
@@ -40,14 +37,14 @@ function getData(response) {
 
     marker.bindPopup(`${weatherapp}`).openPopup();
 
-    /*let marker = L.marker([lat, lon]).addTo(map);
+    let marker = L.marker([lat, lon]).addTo(map);
    
 
     marker
       .bindPopup(
         `<b> Greetings 👋🏽 from ${city}!</b><div><p>The current weather</p><ul class = temp><li>Temp ${temp}°C</li><li>Humidity ${humidity}%</li></ul></div>`
       )
-      .openPopup();*/
+      .openPopup();
   }
 }
 let bbox = [9.981079, 49.640203, 18.325195, 52.141203, 8];
@@ -56,5 +53,4 @@ let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbo
 //let url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${apiKey}`;
 axios.get(weatherApiUrl).then(getData);
 
-L.Control.geocoder().addTo(map);
-
+L.Control.geocoder().addTo(map);*/
