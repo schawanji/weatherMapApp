@@ -1,4 +1,4 @@
-let mymap = L.map("mapid").setView([0, 0], 2);
+let map = L.map("mapid").setView([0, 0], 2);
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
@@ -11,7 +11,7 @@ L.tileLayer(
     accessToken:
       "pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ",
   }
-).addTo(mymap);
+).addTo(map);
 
 //////////////////////////////////////////////////////////777777777
 
@@ -26,7 +26,7 @@ function getData(response) {
     let marker = L.marker([
       response.data.list[index].coord.Lat,
       response.data.list[index].coord.Lon,
-    ]).addTo(mymap);
+    ]).addTo(map);
 
     let weatherapp = `<b> Greetings 👋🏽 from ${
       response.data.list[index].name
@@ -40,7 +40,7 @@ function getData(response) {
 
     marker.bindPopup(`${weatherapp}`).openPopup();
 
-    /*let marker = L.marker([lat, lon]).addTo(mymap);
+    /*let marker = L.marker([lat, lon]).addTo(map);
    
 
     marker
@@ -56,4 +56,5 @@ let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbo
 //let url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${apiKey}`;
 axios.get(weatherApiUrl).then(getData);
 
-L.Control.geocoder().addTo(mymap);
+L.Control.geocoder().addTo(map);
+
