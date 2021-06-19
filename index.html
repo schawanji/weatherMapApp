@@ -41,7 +41,58 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <div id="mapid"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="mapid"></div>
+        <div class="content">
+          <div id="units">
+            <nav class="nav nav-pills flex-column flex-sm-row">
+              <span class="units"
+                ><a
+                  class="flex-sm-fill text-sm-center nav-link active"
+                  aria-current="page"
+                  href="#"
+                  >Metric</a
+                ></span
+              >
+              <span class="units"
+                ><a
+                  class="flex-sm-fill text-sm-center nav-link active"
+                  aria-current="page"
+                  href="#"
+                  >Imperial</a
+                ></span
+              >
+            </nav>
+          </div>
+
+          <div class="current-weather">
+            <h1>Harare</h1>
+            <ul>
+              <li>Saturday 12:44</li>
+              <li>Clear sky</li>
+            </ul>
+
+            <div class="row">
+              <div class="col-6">
+                <img
+                  src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
+                  alt="Sunny"
+                />
+                <span>34 °C</span>
+              </div>
+              <div class="col-6">
+                <ul>
+                  <li>Humidity: <span> 30%</span></li>
+                  <li>Wind <span>2 km/h</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">Open-source code by Sharon Chawanji</div>
 
     <script src="src/index.js"></script>
   </body>
