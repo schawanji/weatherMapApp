@@ -75,16 +75,21 @@ function displayWeatherData(response) {
   descriptionElement.innerHTML = `${response.data.weather[0].description}`;
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/H`;
   humidityElement.innerHTML = `${response.data.main.humidity} %`;
-  console.log(formatDate(response.data.dt));
 }
-
 function searchCity(city) {
   let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(displayWeatherData);
 }
 
+function handleCityQuery(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector(`#city-input`);
+  searchCity(cityInputElement.value);
+}
 searchCity(`Judenburg`);
+let formElement = document.querySelector(`#search-form`);
+formElement.addEventListener("submit", handleCityQuery);
 
 /*function getData(response) {
   let index = 0;
