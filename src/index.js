@@ -83,27 +83,37 @@ function displayWeatherOnMap(coordinates) {
     )
     .openPopup();
 }
-function displayWeatherForecast(params) {
-  let forecastElement = document.querySelector(`#weather-forecast`);
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let day = date.getDay();
+  return days[day];
+}
+
+function displayWeatherForecast(response) {
+  let forecastElement = document.querySelector(`#weather-forecast`);
+  let forecastDays = response.data.daily;
   let forecastHTML = ``;
   forecastHTML = forecastHTML + `<div class="row">`;
 
-  days.forEach(function (days, index) {
-    if (index < 6) {
+  forecastDays.forEach(function (forecastDay, index) {
+    if (index < 5) {
       forecastHTML =
         forecastHTML +
         `
 
   <div class="col-2">
-    <div class="date">${days}</div>
+    <div class="date">${formatDay(forecastDay.dt)}</div>
     <img
-      src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-      alt=""
-    />
+            src="https://openweathermap.org/img/wn/${
+              forecastDay.weather[0].icon
+            }@2x.png"
+            alt="${forecastDay.weather[0].main}"
+          />
     <div class="temp">
-      <span id="max-temp">25°</span
-      ><span class="min-temp">16°</span>
+      <span id="max-temp">${Math.round(forecastDay.temp.max)}°</span
+      ><span class="min-temp">${Math.round(forecastDay.temp.min)}°</span>
     </div>
   </div>
 `;
@@ -112,6 +122,15 @@ function displayWeatherForecast(params) {
   forecastHTML = forecastHTML + `</div>`;
 
   forecastElement.innerHTML = `${forecastHTML}`;
+  formatDay(response.data.daily);
+}
+
+function getWeatherForecastData(response) {
+  let lat = response.coord.lat;
+  let lon = response.coord.lon;
+  let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayWeatherForecast);
 }
 
 function displayWeatherData(response) {
@@ -135,6 +154,7 @@ function displayWeatherData(response) {
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/H`;
   humidityElement.innerHTML = `${response.data.main.humidity} %`;
   displayWeatherOnMap(response.data);
+  getWeatherForecastData(response.data);
 }
 
 function searchCity(city) {
@@ -148,7 +168,7 @@ function handleCityQuery(event) {
   let cityInputElement = document.querySelector(`#city-input`);
   searchCity(cityInputElement.value);
 }
-displayWeatherForecast();
+
 searchCity(`Judenburg`);
 let formElement = document.querySelector(`#search-form`);
 formElement.addEventListener("submit", handleCityQuery);
