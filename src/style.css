@@ -66,9 +66,8 @@ ul {
 .foot {
   padding: 10px auto;
   margin-top: 30px;
-}
-.weather-app {
-  margin-top: 30px;
+  font-size: 12px;
+  text-align: center;
 }
 
 .search-icon {
