@@ -85,14 +85,18 @@ function displayWeatherOnMap(coordinates) {
 }
 function displayWeatherForecast(params) {
   let forecastElement = document.querySelector(`#weather-forecast`);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHTML = ``;
   forecastHTML = forecastHTML + `<div class="row">`;
-  forecastHTML =
-    forecastHTML +
-    `
+
+  days.forEach(function (days, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
 
   <div class="col-2">
-    <div class="date">Thu</div>
+    <div class="date">${days}</div>
     <img
       src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
       alt=""
@@ -103,8 +107,10 @@ function displayWeatherForecast(params) {
     </div>
   </div>
 `;
+    }
+  });
   forecastHTML = forecastHTML + `</div>`;
-  console.log(forecastHTML);
+
   forecastElement.innerHTML = `${forecastHTML}`;
 }
 
