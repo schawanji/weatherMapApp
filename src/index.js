@@ -7,7 +7,6 @@ L.tileLayer(
       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 9,
     minZoom: 5,
-    id: "mapbox/streets-v8",
     tileSize: 512,
     zoomOffset: -1,
     accessToken:
