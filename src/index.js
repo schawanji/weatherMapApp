@@ -14,6 +14,37 @@ L.tileLayer(
   }
 ).addTo(map);
 
+//////////////////////
+
+function displayWeatherData(response) {
+  let cityElement = document.querySelector(`#city`);
+  let tempElement = document.querySelector(`#temp`);
+  let humidityElement = document.querySelector(`#humidity`);
+  let descriptionElement = document.querySelector(`#description`);
+  let windElement = document.querySelector(`#wind`);
+  let weatherIconElement = document.querySelector(`#weather-icon`);
+
+  weatherIconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherIconElement.setAttribute("alt", `${response.data.weather[0].main}`);
+  cityElement.innerHTML = `${response.data.name}`;
+  tempElement.innerHTML = `${Math.round(response.data.main.temp)}`;
+  descriptionElement.innerHTML = `${response.data.weather[0].description}`;
+  windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/H`;
+  humidityElement.innerHTML = `${response.data.main.humidity} %`;
+  console.log(response.data);
+}
+
+function searchCity(city) {
+  let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayWeatherData);
+}
+
+searchCity(`Judenburg`);
+
 /*function getData(response) {
   let index = 0;
 

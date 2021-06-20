@@ -18,13 +18,10 @@ li {
   list-style: none;
 
   font-size: 16px;
-  font-weight: 100;
+  font-weight: 300;
   line-height: 19px;
 }
-img {
-  height: 60px;
-  width: 60px;
-}
+
 p {
   font-size: 16px;
 }
@@ -38,6 +35,24 @@ ul {
   width: 70%;
 }
 
+#city-input {
+  border: none;
+  background: none;
+  color: #ffffff;
+
+  outline: 0;
+}
+
+#search-form {
+  border: 0;
+  color: #ffffff;
+  outline: 0;
+  background: none;
+  line-height: 40px;
+  border-bottom: 2px solid #e56029;
+  width: 70%;
+}
+
 .content {
   width: 30%;
   margin: 5px auto;
@@ -46,17 +61,32 @@ ul {
   margin: 30px auto;
   padding: 5px 5px;
 }
+
 .foot {
   padding: 10px auto;
   margin-top: 30px;
 }
+.weather-app {
+  margin-top: 30px;
+}
 
-.search_input {
-  border: 0;
-  color: #ffffff;
-  outline: 0;
-  background: none;
-  line-height: 40px;
-  border-bottom: 2px solid #e56029;
-  width: 70%;
+.search-icon {
+  text-align: left;
+}
+
+.weather-temp strong {
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 1;
+}
+
+.weather-temp .units {
+  position: relative;
+  font-size: 16px;
+  top: -34px;
+}
+.weather-temp img {
+  margin-right: 10px;
+  height: 64px;
+  width: 64px;
 }
