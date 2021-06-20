@@ -14,7 +14,46 @@ L.tileLayer(
   }
 ).addTo(map);
 
-//////////////////////
+function formatDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = date.getDay();
+  let hour = date.getHours();
+  let min = date.getMinutes();
+  let mon = date.getMonth();
+  let year = date.getFullYear();
+  let currentDate = date.getDate();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+
+  if (min < 10) {
+    min = `0${min}`;
+  }
+  return `${days[day]} ${currentDate} ${months[mon]} ${year} ${hour}:${min}`;
+}
 
 function displayWeatherData(response) {
   let cityElement = document.querySelector(`#city`);
@@ -23,6 +62,8 @@ function displayWeatherData(response) {
   let descriptionElement = document.querySelector(`#description`);
   let windElement = document.querySelector(`#wind`);
   let weatherIconElement = document.querySelector(`#weather-icon`);
+  let dateElement = document.querySelector(`.date`);
+  dateElement.innerHTML = `${formatDate(response.data.dt)}`;
 
   weatherIconElement.setAttribute(
     "src",
@@ -34,7 +75,7 @@ function displayWeatherData(response) {
   descriptionElement.innerHTML = `${response.data.weather[0].description}`;
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/H`;
   humidityElement.innerHTML = `${response.data.main.humidity} %`;
-  console.log(response.data);
+  console.log(formatDate(response.data.dt));
 }
 
 function searchCity(city) {
