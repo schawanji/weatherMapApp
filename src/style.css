@@ -91,3 +91,12 @@ ul {
   height: 64px;
   width: 64px;
 }
+
+.map-popup {
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 5px 5px;
+  border-radius: 5px;
+  text-align: center;
+}

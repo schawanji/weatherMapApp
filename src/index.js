@@ -55,6 +55,35 @@ function formatDate(timestamp) {
   return `${days[day]} ${currentDate} ${months[mon]} ${year} ${hour}:${min}`;
 }
 
+function displayWeatherOnMap(coordinates) {
+  let marker = L.marker([coordinates.coord.lat, coordinates.coord.lon]).addTo(
+    map
+  );
+  marker
+    .bindPopup(
+      `<div class="map-popup">
+  <div class="container">
+    <div class="row">
+      <div class="col-12"><b>👋🏽 from ${coordinates.name}</b></div>
+      <div class="col-12">
+        <div >
+        <img
+            src="https://openweathermap.org/img/wn/${
+              coordinates.weather[0].icon
+            }@2x.png"
+            alt="${coordinates.weather[0].main}"
+          />
+            <strong>${Math.round(coordinates.main.temp)}°C</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`
+    )
+    .openPopup();
+}
+
 function displayWeatherData(response) {
   let cityElement = document.querySelector(`#city`);
   let tempElement = document.querySelector(`#temp`);
@@ -75,7 +104,9 @@ function displayWeatherData(response) {
   descriptionElement.innerHTML = `${response.data.weather[0].description}`;
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/H`;
   humidityElement.innerHTML = `${response.data.main.humidity} %`;
+  displayWeatherOnMap(response.data);
 }
+
 function searchCity(city) {
   let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
