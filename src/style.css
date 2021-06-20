@@ -3,6 +3,7 @@ body {
   background-color: black;
   color: #d4cec5;
   font-size: 18px;
+  text-transform: capitalize;
 }
 
 h1 {
