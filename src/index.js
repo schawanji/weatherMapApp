@@ -83,6 +83,30 @@ function displayWeatherOnMap(coordinates) {
     )
     .openPopup();
 }
+function displayWeatherForecast(params) {
+  let forecastElement = document.querySelector(`#weather-forecast`);
+  let forecastHTML = ``;
+  forecastHTML = forecastHTML + `<div class="row">`;
+  forecastHTML =
+    forecastHTML +
+    `
+
+  <div class="col-2">
+    <div class="date">Thu</div>
+    <img
+      src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+      alt=""
+    />
+    <div class="temp">
+      <span id="max-temp">25°</span
+      ><span class="min-temp">16°</span>
+    </div>
+  </div>
+`;
+  forecastHTML = forecastHTML + `</div>`;
+  console.log(forecastHTML);
+  forecastElement.innerHTML = `${forecastHTML}`;
+}
 
 function displayWeatherData(response) {
   let cityElement = document.querySelector(`#city`);
@@ -118,6 +142,7 @@ function handleCityQuery(event) {
   let cityInputElement = document.querySelector(`#city-input`);
   searchCity(cityInputElement.value);
 }
+displayWeatherForecast();
 searchCity(`Judenburg`);
 let formElement = document.querySelector(`#search-form`);
 formElement.addEventListener("submit", handleCityQuery);
