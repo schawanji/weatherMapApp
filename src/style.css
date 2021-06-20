@@ -99,3 +99,19 @@ ul {
   border-radius: 5px;
   text-align: center;
 }
+
+.weather-forecast img {
+  height: 32px;
+  width: 32px;
+}
+
+.weather-forecast {
+  border-radius: 5px;
+  border: 1px solid blanchedalmond;
+  padding: 5px 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.weather-forecast .min-temp {
+  font-size: 12px;
+}
