@@ -32,7 +32,7 @@ ul {
 }
 
 #mapid {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 10px);
   width: 70%;
 }
 
@@ -107,6 +107,7 @@ ul {
 
 #weather-forecast {
   border-radius: 5px;
+  border: 1px solid #d4cec5;
   color: #dadde1;
   padding: 20px;
   font-size: 14px;
