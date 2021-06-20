@@ -1,11 +1,12 @@
-let map = L.map("mapid").setView([48, 15], 6);
+let map = L.map("mapid").setView([48, 15], 7);
 L.tileLayer(
-  "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+  //"https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+  "https://api.mapbox.com/styles/v1/schawanji/ckq5n32rz1a6218pkug2kukyv/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ",
   {
     attribution:
       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 7,
-    minZoom: 4,
+    maxZoom: 9,
+    minZoom: 5,
     id: "mapbox/streets-v8",
     tileSize: 512,
     zoomOffset: -1,
@@ -169,7 +170,7 @@ function handleCityQuery(event) {
   searchCity(cityInputElement.value);
 }
 
-searchCity(`Judenburg`);
+searchCity(`Nottingham`);
 let formElement = document.querySelector(`#search-form`);
 formElement.addEventListener("submit", handleCityQuery);
 
