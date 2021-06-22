@@ -1,15 +1,53 @@
 let map = L.map("mapid").setView([48, 15], 5);
-L.tileLayer(
-  "https://api.mapbox.com/styles/v1/schawanji/ckq82x4pw4vmt18nqlr29sw6o/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ",
-  {
-    attribution:
-      'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 10,
-    minZoom: 3,
-    tileSize: 512,
-    zoomOffset: -1,
-  }
-).addTo(map);
+let url =
+  "https://api.mapbox.com/styles/v1/schawanji/ckq8ae8n71ugf17p8iyhc6lio/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ";
+L.tileLayer(`${url}`, {
+  attribution:
+    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 10,
+  minZoom: 4,
+  tileSize: 512,
+  zoomOffset: -1,
+}).addTo(map);
+
+function displayWeatherOnMap(coordinates) {
+  L.AwesomeMarkers.Icon.prototype.options.prefix = "wi";
+  let redMarker = L.AwesomeMarkers.icon({
+    icon: `	wi-owm-${coordinates.weather[0].id}`,
+    markerColor: "red",
+  });
+  let marker = L.marker([coordinates.coord.lat, coordinates.coord.lon], {
+    icon: redMarker,
+  }).addTo(map);
+  marker
+    .bindPopup(
+      `<div class="map-popup">
+  <div class="container">
+    <div class="row">
+      <div class="col-12"><b> ${coordinates.name}</b></div>
+      <div class="col-12">
+        <div >
+        <ul ><li class="map-popup"><i class="wi wi-owm-${
+          coordinates.weather[0].id
+        }"></i><strong> ${Math.round(coordinates.main.temp)}°C</strong></li>
+        <li class="map-popup"><i class="wi wi-humidity "></i><strong> ${Math.round(
+          coordinates.main.humidity
+        )}%</strong></li>
+        <li class="map-popup"><i class="fas fa-wind "></i><strong> ${Math.round(
+          coordinates.wind.speed
+        )} km/h</strong></li></ul>
+        
+            
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`
+    )
+    .openPopup();
+}
 
 function formatDate(timestamp) {
   let date = new Date(timestamp * 1000);
@@ -50,35 +88,6 @@ function formatDate(timestamp) {
     min = `0${min}`;
   }
   return `${days[day]} ${currentDate} ${months[mon]} ${year} ${hour}:${min}`;
-}
-
-function displayWeatherOnMap(coordinates) {
-  let marker = L.marker([coordinates.coord.lat, coordinates.coord.lon]).addTo(
-    map
-  );
-  marker
-    .bindPopup(
-      `<div class="map-popup">
-  <div class="container">
-    <div class="row">
-      <div class="col-12"><b>👋🏽 from ${coordinates.name}</b></div>
-      <div class="col-12">
-        <div >
-        <img
-            src="https://openweathermap.org/img/wn/${
-              coordinates.weather[0].icon
-            }@2x.png"
-            alt="${coordinates.weather[0].main}"
-          />
-            <strong>${Math.round(coordinates.main.temp)}°C</strong>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`
-    )
-    .openPopup();
 }
 
 function formatDay(timestamp) {

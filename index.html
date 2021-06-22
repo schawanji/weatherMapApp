@@ -17,7 +17,11 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="src/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/weather-icons-wind.css" />
+    <link rel="stylesheet" href="css/weather-icons-wind.min.css" />
+    <link rel="stylesheet" href="css/weather-icons.css" />
+    <link rel="stylesheet" href="css/weather-icons.min.css" />
     <script
       src="https://kit.fontawesome.com/e140c5afeb.js"
       crossorigin="anonymous"
@@ -39,6 +43,12 @@
       rel="stylesheet"
       href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
     />
+    <link
+      rel="stylesheet"
+      href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css"
+    />
+    <link rel="stylesheet" href="css/leaflet.awesome-markers.css" />
+    <script src="js/leaflet.awesome-markers.js"></script>
 
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
@@ -72,7 +82,10 @@
                 </div>
                 <div class="col-6">
                   <ul>
-                    <li>Humidity: <span id="humidity"> </span></li>
+                    <li>
+                      Humidity:
+                      <span id="humidity"> </span>
+                    </li>
                     <li>Wind: <span id="wind"></span></li>
                   </ul>
                 </div>
@@ -100,20 +113,35 @@
               </form>
             </div>
             <div class="foot">
-              <h2>
+              <div>
+                <p>
+                  This Weather Map Application was created by Sharon Chawanji.
+                  Weather icons By<a
+                    href="https://erikflowers.github.io/weather-icons/"
+                  >
+                    Erik Flowers</a
+                  >
+                  Leaflet awesome markers by
+                  <a href="https://github.com/lennardv2/Leaflet.awesome-markers"
+                    >Lukas Bischoff.</a
+                  >
+                </p>
+              </div>
+
+              <div>
                 <a href="https://github.com/schawanji/weatherMapApp"
                   ><i class="fab fa-github icon"></i
                 ></a>
                 <a href="https://www.linkedin.com/in/sharon-chawanji-935778155/"
                   ><i class="fab fa-linkedin-in icon"></i
                 ></a>
-              </h2>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="src/index.js"></script>
+    <script src="js/index.js"></script>
   </body>
 </html>
