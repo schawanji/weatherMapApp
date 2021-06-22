@@ -1,12 +1,11 @@
-let map = L.map("mapid").setView([48, 15], 3);
+let map = L.map("mapid").setView([48, 15], 5);
 L.tileLayer(
-  //"https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-  "https://api.mapbox.com/styles/v1/schawanji/ckq5n32rz1a6218pkug2kukyv/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ",
+  "https://api.mapbox.com/styles/v1/schawanji/ckq82x4pw4vmt18nqlr29sw6o/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ",
   {
     attribution:
       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 9,
-    minZoom: 2,
+    maxZoom: 10,
+    minZoom: 3,
     tileSize: 512,
     zoomOffset: -1,
   }
