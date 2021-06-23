@@ -1,5 +1,5 @@
 let map = L.map("mapid").setView([48, 15], 9);
-L.Control.geocoder().addTo(map);
+//L.Control.geocoder().addTo(map);
 let url =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
 
