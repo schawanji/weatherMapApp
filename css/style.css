@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #2e2e2e;
+  background-color: #191a1a;
   color: #d4cec5;
   font-size: 16px;
   text-transform: capitalize;
@@ -139,7 +139,7 @@ ul {
   margin-top: 50px;
 }
 .awesome-marker i {
-  font-size: 18px;
+  font-size: 12px;
   margin-top: 5px;
   color: #d4412d;
 }

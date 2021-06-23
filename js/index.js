@@ -1,14 +1,82 @@
-let map = L.map("mapid").setView([48, 15], 5);
+let map = L.map("mapid").setView([48, 15], 9);
+L.Control.geocoder().addTo(map);
 let url =
-  "https://api.mapbox.com/styles/v1/schawanji/ckq8ae8n71ugf17p8iyhc6lio/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ";
+  "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
+
 L.tileLayer(`${url}`, {
   attribution:
     'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 10,
-  minZoom: 4,
+  maxZoom: 11,
+  minZoom: 7,
+  id: "mapbox/dark-v10",
   tileSize: 512,
   zoomOffset: -1,
+  accessToken:
+    "pk.eyJ1Ijoic2NoYXdhbmppIiwiYSI6ImNqd2liNnkybjA3MzI0YXFnd3l4bnA4eDUifQ.RPNiQDsrEysuQpCg6FfzfQ",
 }).addTo(map);
+
+function getMapMarkers(response) {
+  let index = 0;
+
+  while (index < response.data.list.length) {
+    index += 1;
+    L.AwesomeMarkers.Icon.prototype.options.prefix = "wi";
+
+    let redMarker = L.AwesomeMarkers.icon({
+      icon: `	wi-owm-${response.data.list[index].weather[0].id}`,
+      markerColor: "red",
+    });
+
+    let marker = L.marker(
+      [
+        response.data.list[index].coord.Lat,
+        response.data.list[index].coord.Lon,
+      ],
+      { icon: redMarker }
+    ).addTo(map);
+
+    marker
+      .bindPopup(
+        `<div class="map-popup">
+    <div class="container">
+      <div class="row">
+        <div class="col-12"><b> ${response.data.list[index].name}</b></div>
+        <div class="col-12">
+          <div >
+          <ul ><li class="map-popup"><i class="wi wi-owm-${
+            response.data.list[index].weather[0].id
+          }"></i><strong> ${Math.round(
+          response.data.list[index].main.temp
+        )}°C</strong></li>
+          <li class="map-popup"><i class="wi wi-humidity "></i><strong> ${Math.round(
+            response.data.list[index].main.humidity
+          )}%</strong></li>
+          <li class="map-popup"><i class="fas fa-wind "></i><strong> ${Math.round(
+            response.data.list[index].wind.speed
+          )} km/h</strong></li></ul>    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  `
+      )
+      .openPopup();
+  }
+}
+
+map.on("dragend", function onDragEnd() {
+  let east = map.getBounds().getEast();
+  let west = map.getBounds().getWest();
+  let north = map.getBounds().getNorth();
+  let south = map.getBounds().getSouth();
+
+  let bbox = [west, north, east, south, 18];
+  let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
+  let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbox}&appid=${apiKey}`;
+
+  axios.get(weatherApiUrl).then(getMapMarkers);
+});
 
 function displayWeatherOnMap(coordinates) {
   L.AwesomeMarkers.Icon.prototype.options.prefix = "wi";
@@ -35,10 +103,7 @@ function displayWeatherOnMap(coordinates) {
         )}%</strong></li>
         <li class="map-popup"><i class="fas fa-wind "></i><strong> ${Math.round(
           coordinates.wind.speed
-        )} km/h</strong></li></ul>
-        
-            
-            
+        )} km/h</strong></li></ul>    
         </div>
       </div>
     </div>
@@ -175,47 +240,6 @@ function handleCityQuery(event) {
   searchCity(cityInputElement.value);
 }
 
-searchCity(`Nottingham`);
+searchCity(`Heraklion`);
 let formElement = document.querySelector(`#search-form`);
 formElement.addEventListener("submit", handleCityQuery);
-
-/*function getData(response) {
-  let index = 0;
-
-  while (index < response.data.list.length) {
-    index += 1;
-
-    let marker = L.marker([
-      response.data.list[index].coord.Lat,
-      response.data.list[index].coord.Lon,
-    ]).addTo(map);
-
-    let weatherapp = `<b> Greetings 👋🏽 from ${
-      response.data.list[index].name
-    }!</b><div><p>The current weather</p><ul class = temp><li>Temp ${Math.round(
-      response.data.list[index].main.temp
-    )}°C</li><li>Humidity ${
-      response.data.list[index].main.humidity
-    }%</li></ul></div>`;
-
-    //console.log(marker);
-
-    marker.bindPopup(`${weatherapp}`).openPopup();
-
-    let marker = L.marker([lat, lon]).addTo(map);
-   
-
-    marker
-      .bindPopup(
-        `<b> Greetings 👋🏽 from ${city}!</b><div><p>The current weather</p><ul class = temp><li>Temp ${temp}°C</li><li>Humidity ${humidity}%</li></ul></div>`
-      )
-      .openPopup();
-  }
-}
-let bbox = [9.981079, 49.640203, 18.325195, 52.141203, 8];
-let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
-let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbox}&appid=${apiKey}`;
-//let url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${apiKey}`;
-axios.get(weatherApiUrl).then(getData);
-
-L.Control.geocoder().addTo(map);*/
