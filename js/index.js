@@ -17,6 +17,7 @@ L.tileLayer(`${url}`, {
 
 function getMapMarkers(response) {
   let index = 0;
+  let city = response.data.list[index].name;
 
   while (index < response.data.list.length) {
     index += 1;
@@ -66,6 +67,13 @@ function getMapMarkers(response) {
   </div>
   `
     );
+    /*marker.on("mouseover", function (event) {
+      event.preventDefault;
+      marker.openPopup();
+    });
+    marker.on("click", function () {
+      marker.openPopup(searchCity(`${city}`));
+    });*/
   }
 }
 
@@ -74,8 +82,9 @@ map.on("moveend", function onMoveend() {
   let west = map.getBounds().getWest();
   let north = map.getBounds().getNorth();
   let south = map.getBounds().getSouth();
+  let zoomLevel = map.getZoom();
 
-  let bbox = [west, north, east, south, 18];
+  let bbox = [west, north, east, south, zoomLevel];
 
   let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
   let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbox}&appid=${apiKey}`;
@@ -234,7 +243,7 @@ function displayWeatherData(response) {
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   weatherIconElement.setAttribute("alt", `${response.data.weather[0].main}`);
-  cityElement.innerHTML = `${response.data.name}`;
+  cityElement.innerHTML = `${response.data.name}, ${response.data.sys.country}`;
   tempElement.innerHTML = `${Math.round(response.data.main.temp)}`;
   descriptionElement.innerHTML = `${response.data.weather[0].description}`;
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/H`;
@@ -255,18 +264,24 @@ function handleCityQuery(event) {
   searchCity(cityInputElement.value);
 }
 
-function getMyWeather(response) {
-  searchCity(`${response.data.name}`);
-}
-function showPosition(position) {
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-  let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(getMyWeather);
+function getMyWeather(event) {
+  event.preventDefault;
+  function getMyCity(response) {
+    searchCity(`${response.data.name}`);
+  }
+  function showPosition(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    axios.get(apiUrl).then(getMyCity);
+  }
+
+  navigator.geolocation.getCurrentPosition(showPosition);
 }
 
-navigator.geolocation.getCurrentPosition(showPosition);
-
+searchCity(`Tokyo`);
 let formElement = document.querySelector(`#search-form`);
 formElement.addEventListener("submit", handleCityQuery);
+let myLocationElement = document.querySelector(`#my-location`);
+myLocationElement.addEventListener("click", getMyWeather);

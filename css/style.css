@@ -12,6 +12,14 @@ button {
   background: none;
   color: #ffffff;
   outline: 0;
+
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  color: #d4412d;
+  background-color: #d4cec5;
+  border-radius: 5px;
 }
 
 h1 {
@@ -83,9 +91,9 @@ ul {
   color: #d4cec5;
   padding: 20px;
   font-size: 16px;
+  text-align: center;
 }
 #weather-forecast .min-temp {
-  font-size: 14px;
   color: #d4cec5;
 }
 
