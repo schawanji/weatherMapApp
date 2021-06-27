@@ -69,13 +69,14 @@ function getMapMarkers(response) {
   }
 }
 
-map.on("dragend", function onDragEnd() {
+map.on("moveend", function onMoveend() {
   let east = map.getBounds().getEast();
   let west = map.getBounds().getWest();
   let north = map.getBounds().getNorth();
   let south = map.getBounds().getSouth();
 
   let bbox = [west, north, east, south, 18];
+
   let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
   let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbox}&appid=${apiKey}`;
 
@@ -254,6 +255,6 @@ function handleCityQuery(event) {
   searchCity(cityInputElement.value);
 }
 
-searchCity(`Oslo`);
+searchCity(`New York`);
 let formElement = document.querySelector(`#search-form`);
 formElement.addEventListener("submit", handleCityQuery);
