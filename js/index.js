@@ -1,4 +1,4 @@
-let map = L.map("mapid").setView([48, 15], 3);
+let map = L.map("mapid").setView([48, 15], 11);
 //L.Control.geocoder().addTo(map);
 let url =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
@@ -7,7 +7,7 @@ L.tileLayer(`${url}`, {
   attribution:
     'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
   maxZoom: 11,
-  minZoom: 3,
+  minZoom: 11,
   id: "mapbox/dark-v10",
   tileSize: 512,
   zoomOffset: -1,
