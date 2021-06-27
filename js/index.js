@@ -1,4 +1,4 @@
-let map = L.map("mapid").setView([48, 15], 9);
+let map = L.map("mapid").setView([48, 15], 3);
 //L.Control.geocoder().addTo(map);
 let url =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
@@ -7,7 +7,7 @@ L.tileLayer(`${url}`, {
   attribution:
     'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
   maxZoom: 11,
-  minZoom: 7,
+  minZoom: 3,
   id: "mapbox/dark-v10",
   tileSize: 512,
   zoomOffset: -1,
@@ -35,33 +35,38 @@ function getMapMarkers(response) {
       { icon: redMarker }
     ).addTo(map);
 
-    marker
-      .bindPopup(
-        `<div class="map-popup">
+    marker.bindPopup(
+      `
+  <div class="map-popup">
     <div class="container">
       <div class="row">
         <div class="col-12"><b> ${response.data.list[index].name}</b></div>
         <div class="col-12">
           <div >
-          <ul ><li class="map-popup"><i class="wi wi-owm-${
-            response.data.list[index].weather[0].id
-          }"></i><strong> ${Math.round(
-          response.data.list[index].main.temp
-        )}°C</strong></li>
-          <li class="map-popup"><i class="wi wi-humidity "></i><strong> ${Math.round(
-            response.data.list[index].main.humidity
-          )}%</strong></li>
-          <li class="map-popup"><i class="fas fa-wind "></i><strong> ${Math.round(
-            response.data.list[index].wind.speed
-          )} km/h</strong></li></ul>    
+          <ul >
+          <li class="map-popup">
+          <i class="wi wi-owm-${response.data.list[index].weather[0].id} icon">
+          </i>
+          ${Math.round(response.data.list[index].main.temp)}°C
+          </li>
+          <li class="map-popup">
+          <i class="wi wi-humidity icon">
+          </i> 
+          ${Math.round(response.data.list[index].main.humidity)} %
+          </li>
+          <li class="map-popup">
+          <i class="fas fa-wind icon">
+          </i>
+           ${Math.round(response.data.list[index].wind.speed)} km/h
+          </li>
+          </ul>    
           </div>
         </div>
       </div>
     </div>
   </div>
   `
-      )
-      .openPopup();
+    );
   }
 }
 
@@ -89,21 +94,27 @@ function displayWeatherOnMap(coordinates) {
   }).addTo(map);
   marker
     .bindPopup(
-      `<div class="map-popup">
+      `
+<div class="map-popup">
   <div class="container">
     <div class="row">
-      <div class="col-12"><b> ${coordinates.name}</b></div>
+      <div class="col-12"><b>${coordinates.name}</b></div>
       <div class="col-12">
         <div >
-        <ul ><li class="map-popup"><i class="wi wi-owm-${
-          coordinates.weather[0].id
-        }"></i><strong> ${Math.round(coordinates.main.temp)}°C</strong></li>
-        <li class="map-popup"><i class="wi wi-humidity "></i><strong> ${Math.round(
-          coordinates.main.humidity
-        )}%</strong></li>
-        <li class="map-popup"><i class="fas fa-wind "></i><strong> ${Math.round(
-          coordinates.wind.speed
-        )} km/h</strong></li></ul>    
+        <ul >
+         <li class="map-popup">
+          <i class="wi wi-owm-${coordinates.weather[0].id} icon">
+          </i>  ${Math.round(coordinates.main.temp)}°C
+         </li>
+         <li class="map-popup">
+          <i class="wi wi-humidity icon">
+          </i>  ${Math.round(coordinates.main.humidity)} %
+        </li>
+        <li class="map-popup">
+        <i class="fas fa-wind icon">
+        </i>  ${Math.round(coordinates.wind.speed)} km/h
+        </li>
+        </ul> 
         </div>
       </div>
     </div>
@@ -240,6 +251,6 @@ function handleCityQuery(event) {
   searchCity(cityInputElement.value);
 }
 
-searchCity(`Heraklion`);
+searchCity(`Oslo`);
 let formElement = document.querySelector(`#search-form`);
 formElement.addEventListener("submit", handleCityQuery);

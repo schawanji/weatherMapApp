@@ -4,6 +4,14 @@ body {
   color: #d4cec5;
   font-size: 16px;
   text-transform: capitalize;
+  font-family: "PT Mono", monospace;
+}
+
+button {
+  border: none;
+  background: none;
+  color: #ffffff;
+  outline: 0;
 }
 
 h1 {
@@ -40,15 +48,13 @@ ul {
 }
 
 #mapid {
-  height: calc(100vh - 10px);
-  width: 70%;
+  height: calc(100vh - 50px);
 }
 
 #city-input {
   border: none;
   background: none;
   color: #ffffff;
-
   outline: 0;
 }
 
@@ -60,6 +66,10 @@ ul {
   line-height: 40px;
   border-bottom: 2px solid #d4412d;
   width: 70%;
+}
+#foot {
+  margin: 10px auto;
+  text-align: center;
 }
 
 #weather-forecast img {
@@ -80,23 +90,11 @@ ul {
 }
 
 .content {
-  width: 30%;
   margin: 5px auto;
 }
 .current-weather {
   margin: 30px auto;
   padding: 15px 15px;
-}
-
-.foot {
-  padding: 10px auto;
-  margin-top: 30px;
-  font-size: 16px;
-  text-align: center;
-}
-
-.search-icon {
-  text-align: left;
 }
 
 .weather-temp strong {
@@ -116,16 +114,6 @@ ul {
   width: 64px;
 }
 
-.map-popup {
-  background-color: #000000;
-  color: #ffffff;
-  font-size: 14px;
-  padding: 5px 5px;
-  border-radius: 5px;
-  text-align: center;
-  text-transform: none;
-}
-
 .icon {
   color: #d4cec5;
   padding: 5px 5px;
@@ -133,6 +121,19 @@ ul {
 }
 .icon:hover {
   color: #d4412d;
+}
+
+.map-popup {
+  font-weight: 400;
+  font-size: 14px;
+  text-align: left;
+  text-transform: none;
+}
+
+.map-popup .icon {
+  color: #d4412d;
+  padding: 5px 5px;
+  font-size: 18px;
 }
 
 .search-city {
