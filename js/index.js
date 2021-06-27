@@ -21,7 +21,6 @@ function getMapMarkers(response) {
   while (index < response.data.list.length) {
     index += 1;
     L.AwesomeMarkers.Icon.prototype.options.prefix = "wi";
-
     let redMarker = L.AwesomeMarkers.icon({
       icon: `	wi-owm-${response.data.list[index].weather[0].id}`,
       markerColor: "red",
@@ -123,6 +122,10 @@ function displayWeatherOnMap(coordinates) {
 `
     )
     .openPopup();
+
+  let latLngs = [marker.getLatLng()];
+  let markerBounds = L.latLngBounds(latLngs);
+  map.fitBounds(markerBounds);
 }
 
 function formatDate(timestamp) {
