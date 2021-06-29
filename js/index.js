@@ -1,12 +1,12 @@
-let map = L.map("mapid").setView([48, 15], 11);
+let map = L.map("mapid").setView([48, 15], 6);
 let url =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
 
 L.tileLayer(`${url}`, {
   attribution:
-    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 11,
-  minZoom: 11,
+    ' &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Basemap © <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 7,
+  minZoom: 6,
   id: "mapbox/dark-v10",
   tileSize: 512,
   zoomOffset: -1,
@@ -72,12 +72,13 @@ function getMapMarkers(response) {
 }
 
 map.on("moveend", function onMoveend() {
+  let zoom = map.getZoom();
   let bbox = [
     map.getBounds().getWest(),
     map.getBounds().getNorth(),
     map.getBounds().getEast(),
     map.getBounds().getSouth(),
-    map.getZoom(),
+    7,
   ];
 
   let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;

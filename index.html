@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather Map App</title>
-    s
+    <title>⛅ Weather Map App</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -50,10 +49,9 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="weather-app">
+      <div id="weather-app">
         <div class="row">
-          <div class="col-8"><div id="mapid"></div></div>
-          <div class="col-4">
+          <div class="col-6">
             <div class="content">
               <div class="current-weather">
                 <div class="row">
@@ -61,7 +59,7 @@
                   <div class="col-4">
                     <h1>
                       <button id="my-location">
-                        <i class="fas fa-street-view"></i></i>
+                        <i class="fas fa-street-view"></i>
                       </button>
                     </h1>
                   </div>
@@ -88,10 +86,17 @@
                   <div class="col-6">
                     <ul>
                       <li>
-                        Humidity:
+                        <i class="wi wi-thermometer"></i>
+                        <span id="min-max-temp"> </span>
+                      </li>
+                      <li>
+                        <i class="wi wi-humidity"></i>
                         <span id="humidity"> </span>
                       </li>
-                      <li>Wind: <span id="wind"></span></li>
+                      <li>
+                        <i class="wi wi-wind"></i>
+                        <span id="wind"></span>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -119,6 +124,7 @@
               </div>
             </div>
           </div>
+          <div class="col-6"><div id="mapid"></div></div>
         </div>
       </div>
       <div id="foot">
