@@ -1,5 +1,4 @@
 let map = L.map("mapid").setView([48, 15], 11);
-//L.Control.geocoder().addTo(map);
 let url =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
 
@@ -17,8 +16,6 @@ L.tileLayer(`${url}`, {
 
 function getMapMarkers(response) {
   let index = 0;
-  let city = response.data.list[index].name;
-
   while (index < response.data.list.length) {
     index += 1;
     L.AwesomeMarkers.Icon.prototype.options.prefix = "wi";
@@ -67,24 +64,21 @@ function getMapMarkers(response) {
   </div>
   `
     );
-    /*marker.on("mouseover", function (event) {
-      event.preventDefault;
+
+    marker.on("mouseover", function () {
       marker.openPopup();
     });
-    marker.on("click", function () {
-      marker.openPopup(searchCity(`${city}`));
-    });*/
   }
 }
 
 map.on("moveend", function onMoveend() {
-  let east = map.getBounds().getEast();
-  let west = map.getBounds().getWest();
-  let north = map.getBounds().getNorth();
-  let south = map.getBounds().getSouth();
-  let zoomLevel = map.getZoom();
-
-  let bbox = [west, north, east, south, zoomLevel];
+  let bbox = [
+    map.getBounds().getWest(),
+    map.getBounds().getNorth(),
+    map.getBounds().getEast(),
+    map.getBounds().getSouth(),
+    map.getZoom(),
+  ];
 
   let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
   let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbox}&appid=${apiKey}`;
@@ -193,12 +187,12 @@ function displayWeatherForecast(response) {
   forecastHTML = forecastHTML + `<div class="row">`;
 
   forecastDays.forEach(function (forecastDay, index) {
-    if (index < 6) {
+    if (index < 5) {
       forecastHTML =
         forecastHTML +
         `
 
-  <div class="col-2">
+  <div class="col-2 daily-forecast">
     <div class="date">${formatDay(forecastDay.dt)}</div>
     <img
             src="https://openweathermap.org/img/wn/${
