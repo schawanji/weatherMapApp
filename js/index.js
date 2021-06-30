@@ -1,11 +1,11 @@
-let map = L.map("mapid").setView([48, 15], 6);
+let map = L.map("mapid").setView([48, 15], 7);
 let url =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
 
 L.tileLayer(`${url}`, {
   attribution:
     ' &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Basemap © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 7,
+  maxZoom: 8,
   minZoom: 6,
   id: "mapbox/dark-v10",
   tileSize: 512,
@@ -16,53 +16,52 @@ L.tileLayer(`${url}`, {
 
 function getMapMarkers(response) {
   let index = 0;
-  while (index < response.data.list.length) {
+  let data = response.data.list;
+  while (index < data.length) {
     index += 1;
-    L.AwesomeMarkers.Icon.prototype.options.prefix = "wi";
-    let redMarker = L.AwesomeMarkers.icon({
-      icon: `	wi-owm-${response.data.list[index].weather[0].id}`,
-      markerColor: "red",
+
+    let fontAwesomeIcon = L.divIcon({
+      html: `<i class="wi wi-owm-${data[index].weather[0].id} icon1"></i>`,
+      iconSize: [20, 20],
+      className: "myDivIcon",
+      iconAnchor: [0, 0],
     });
 
-    let marker = L.marker(
-      [
-        response.data.list[index].coord.Lat,
-        response.data.list[index].coord.Lon,
-      ],
-      { icon: redMarker }
-    ).addTo(map);
-
+    let marker = L.marker([data[index].coord.Lat, data[index].coord.Lon], {
+      icon: fontAwesomeIcon,
+    }).addTo(map);
     marker.bindPopup(
       `
-  <div class="map-popup">
-    <div class="container">
-      <div class="row">
-        <div class="col-12"><b> ${response.data.list[index].name}</b></div>
-        <div class="col-12">
-          <div >
-          <ul >
-          <li class="map-popup">
-          <i class="wi wi-owm-${response.data.list[index].weather[0].id} icon">
-          </i>
-          ${Math.round(response.data.list[index].main.temp)}°C
-          </li>
-          <li class="map-popup">
-          <i class="wi wi-humidity icon">
-          </i> 
-          ${Math.round(response.data.list[index].main.humidity)} %
-          </li>
-          <li class="map-popup">
-          <i class="fas fa-wind icon">
-          </i>
-           ${Math.round(response.data.list[index].wind.speed)} km/h
-          </li>
-          </ul>    
+    <div class="map-popup">
+      <div class="container">
+        <div class="row">
+          <div class="col-12"><b> ${data[index].name}</b></div>
+          <div class="col-12"><b>${data[index].weather[0].description}</b></div>
+          <div class="col-12">
+            <div >
+            <ul >
+            <li class="map-popup">
+            <i class="wi wi-owm-${data[index].weather[0].id} icon">
+            </i>
+            ${Math.round(data[index].main.temp)}°C
+            </li>
+            <li class="map-popup">
+            <i class="wi wi-humidity icon">
+            </i> 
+            ${Math.round(data[index].main.humidity)} %
+            </li>
+            <li class="map-popup">
+            <i class="fas fa-wind icon">
+            </i>
+             ${Math.round(data[index].wind.speed)} km/h
+            </li>
+            </ul>    
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  `
+    `
     );
 
     marker.on("mouseover", function () {
@@ -78,7 +77,7 @@ map.on("moveend", function onMoveend() {
     map.getBounds().getNorth(),
     map.getBounds().getEast(),
     map.getBounds().getSouth(),
-    7,
+    8,
   ];
 
   let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
@@ -88,13 +87,15 @@ map.on("moveend", function onMoveend() {
 });
 
 function displayWeatherOnMap(coordinates) {
-  L.AwesomeMarkers.Icon.prototype.options.prefix = "wi";
-  let redMarker = L.AwesomeMarkers.icon({
-    icon: `	wi-owm-${coordinates.weather[0].id}`,
-    markerColor: "red",
+  let fontAwesomeIcon = L.divIcon({
+    html: `<i class="wi wi-owm-${coordinates.weather[0].id} icon1"></i>`,
+    iconSize: [20, 20],
+    className: "myDivIcon",
+    iconAnchor: [0, 0],
   });
+
   let marker = L.marker([coordinates.coord.lat, coordinates.coord.lon], {
-    icon: redMarker,
+    icon: fontAwesomeIcon,
   }).addTo(map);
   marker
     .bindPopup(
@@ -103,6 +104,7 @@ function displayWeatherOnMap(coordinates) {
   <div class="container">
     <div class="row">
       <div class="col-12"><b>${coordinates.name}</b></div>
+      <div class="col-12"><b>${coordinates.weather[0].description}</b></div>
       <div class="col-12">
         <div >
         <ul >
@@ -127,7 +129,6 @@ function displayWeatherOnMap(coordinates) {
 `
     )
     .openPopup();
-
   let latLngs = [marker.getLatLng()];
   let markerBounds = L.latLngBounds(latLngs);
   map.fitBounds(markerBounds);
@@ -231,6 +232,8 @@ function displayWeatherData(response) {
   let windElement = document.querySelector(`#wind`);
   let weatherIconElement = document.querySelector(`#weather-icon`);
   let dateElement = document.querySelector(`.date`);
+  let minTempElement = document.querySelector(`#min-temp`);
+  let maxTempElement = document.querySelector(`#max-temp`);
   dateElement.innerHTML = `${formatDate(response.data.dt)}`;
 
   weatherIconElement.setAttribute(
