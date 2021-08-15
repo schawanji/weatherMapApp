@@ -1,3 +1,4 @@
+alert('Best viewed on a desktop')
 let map = L.map("mapid").setView([48, 15], 7);
 let url =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
