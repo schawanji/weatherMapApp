@@ -1,4 +1,4 @@
-# weatherMapApp
+# weatherMapApp - with weather forecast from openweather API.
 
 Weather icons By<a
             href="https://erikflowers.github.io/weather-icons/"
