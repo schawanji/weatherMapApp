@@ -81,7 +81,7 @@ map.on("moveend", function onMoveend() {
     8,
   ];
 
-  let apiKey = `e4dfdc1dfbd9af8701deee7d18b22e9b`;
+  let apiKey = `3838877787336447a436a48770270db1`;
   let weatherApiUrl = `https://api.openweathermap.org/data/2.5/box/city?bbox=${bbox}&appid=${apiKey}`;
 
   axios.get(weatherApiUrl).then(getMapMarkers);
